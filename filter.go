@@ -5,7 +5,6 @@ import (
 
 	"github.com/coredns/coredns/plugin"
 	clog "github.com/coredns/coredns/plugin/pkg/log"
-	"github.com/coredns/coredns/request"
 	"github.com/miekg/dns"
 )
 
@@ -19,8 +18,7 @@ type Filter struct {
 func (h Filter) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) (int, error) {
 	log.Info("Testing filter")
 
-	state := request.Request{W: w, Req: r}
-	log.Infof("%+v", state)
+	log.Infof("%+v", r)
 
 	// TODO
 
