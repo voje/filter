@@ -18,8 +18,8 @@ type Filter struct {
 func (h Filter) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) (int, error) {
 	log.Info("Testing filter")
 
-	log.Infof("%+v", r)
 	fqdn := r.Question[0].Name
+	log.Info("fqdn: " + fqdn)
 
 	redirectFqdn := "localhost"
 
