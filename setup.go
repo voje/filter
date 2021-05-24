@@ -1,9 +1,7 @@
 package filter
 
 import (
-	"bufio"
 	"os"
-	"strings"
 
 	"github.com/coredns/caddy"
 	"github.com/coredns/coredns/core/dnsserver"
@@ -13,8 +11,7 @@ import (
 func init() { plugin.Register("filter", setup) }
 
 func setup(c *caddy.Controller) error {
-	var filter Filter
-	filter.Blacklist = make(map[string]bool)
+	filter := NewFilter()
 
 	// Read blacklist
 	c.Next() // Skip 'filter'
@@ -25,27 +22,12 @@ func setup(c *caddy.Controller) error {
 	fileName := c.Val()
 
 	file, err := os.Open(fileName)
+	err = filter.ParseBlacklist(file)
+
 	if err != nil {
 		return plugin.Error("Failed reading file: "+fileName, err)
 	}
 	defer file.Close()
-
-	// Save blacklist entries into 'filter'
-	s := bufio.NewScanner(file)
-	for s.Scan() {
-		line := s.Text()
-		line = strings.Trim(line, " \n\t\r")
-		if line == "" {
-			continue
-		}
-		filter.Blacklist[line] = true
-	}
-
-	// Check for read errors
-	err = s.Err()
-	if err != nil {
-		return plugin.Error("Error while reading file", err)
-	}
 
 	dnsserver.GetConfig(c).AddPlugin(func(next plugin.Handler) plugin.Handler {
 		filter.Next = next
