@@ -19,8 +19,14 @@ func (h Filter) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 	log.Info("Testing filter")
 
 	log.Infof("%+v", r)
+	fqdn := r.Question[0].Name
 
-	// TODO
+	redirectFqdn := "localhost"
+
+	if _, ok := h.Blacklist[fqdn]; ok {
+		log.Infof("Redirecting: %s => %s", redirectFqdn)
+		r.Question[0].Name = redirectFqdn // redirect to localhost
+	}
 
 	return h.Next.ServeDNS(ctx, w, r)
 }
