@@ -6,7 +6,7 @@ import (
 	"github.com/coredns/coredns/plugin"
 )
 
-func init() { plugin.Register("foo", setup) }
+func init() { plugin.Register("filter", setup) }
 
 func setup(c *caddy.Controller) error {
 	dnsserver.GetConfig(c).AddPlugin(func(next plugin.Handler) plugin.Handler {
