@@ -29,7 +29,7 @@ func (h Filter) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 		answers := []dns.RR{}
 
 		rr := new(dns.A)
-		rr.Hdr = dns.RR_Header{Name: "localhost", Rrtype: dns.TypeA, Class: dns.ClassINET}
+		rr.Hdr = dns.RR_Header{Name: fqdn, Rrtype: dns.TypeA, Class: dns.ClassINET}
 		rr.A = net.ParseIP(reply).To4()
 
 		answers = append(answers, rr)
