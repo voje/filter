@@ -15,7 +15,7 @@ type Filter struct {
 }
 
 func (h Filter) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) (int, error) {
-	log.Debug("Testing filter")
+	log.Info("Testing filter")
 	return h.Next.ServeDNS(ctx, w, r)
 }
 
