@@ -10,13 +10,13 @@ import (
 
 var log = clog.NewWithPlugin("filter")
 
-type FilterHandler struct {
+type Filter struct {
 	Next plugin.Handler
 }
 
-func (h FilterHandler) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) (int, error) {
+func (h Filter) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) (int, error) {
 	log.Debug("Testing filter")
 	return h.Next.ServeDNS(ctx, w, r)
 }
 
-func (h FilterHandler) Name() string { return "filter" }
+func (h Filter) Name() string { return "filter" }
