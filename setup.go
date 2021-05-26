@@ -6,8 +6,6 @@ import (
 	"github.com/coredns/caddy"
 	"github.com/coredns/coredns/core/dnsserver"
 	"github.com/coredns/coredns/plugin"
-
-	log "github.com/sirupsen/logrus"
 )
 
 func init() { plugin.Register("filter", setup) }
@@ -44,7 +42,7 @@ func setup(c *caddy.Controller) error {
 	}
 	defer f.Close()
 
-	log.SetOutput(f)
+	filter.log.SetOutput(f)
 
 	dnsserver.GetConfig(c).AddPlugin(func(next plugin.Handler) plugin.Handler {
 		filter.Next = next

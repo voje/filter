@@ -10,7 +10,7 @@ import (
 
 	"github.com/coredns/coredns/plugin"
 	"github.com/miekg/dns"
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 var fqdnRegex = regexp.MustCompile(`(\w*\.\w*).?$`)
@@ -18,6 +18,7 @@ var fqdnRegex = regexp.MustCompile(`(\w*\.\w*).?$`)
 type Filter struct {
 	Next      plugin.Handler
 	Blacklist map[string]bool
+	log       *logrus.Logger
 }
 
 func NewFilter() Filter {
@@ -67,7 +68,7 @@ func (f Filter) ServeDNS(ctx context.Context, w dns.ResponseWriter, r *dns.Msg) 
 
 	if f.Blocks(fqdn) {
 		reply := "127.0.0.1"
-		log.Infof("Redirecting: %s => %s", fqdn, reply)
+		f.log.Infof("Redirecting: %s => %s", fqdn, reply)
 
 		answers := []dns.RR{}
 

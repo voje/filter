@@ -7,5 +7,5 @@ require (
 	github.com/coredns/coredns v1.8.3
 	github.com/miekg/dns v1.1.42
 	github.com/sirupsen/logrus v1.6.0
-	github.com/stretchr/testify v1.6.1 // indirect
+	github.com/stretchr/testify v1.6.1
 )
