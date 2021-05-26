@@ -29,18 +29,14 @@ func setup(c *caddy.Controller) error {
 	}
 	defer file.Close()
 
-	// Set up logger
-	hasNextToken = c.NextArg()
-	if !hasNextToken {
-		return plugin.Error("filter plugin's second argument is the path to logfile", c.ArgErr())
-	}
-	logFileName := c.Val()
+	// Set up logging
+	os.Mkdir("/var/log/coredns/", 0755)
 
-	f, err := os.OpenFile(logFileName, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	f, err := os.OpenFile("/var/log/coredns/filter.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 		return plugin.Error("Error opening file: ", err)
 	}
-	defer f.Close()
+	// Don't close log file
 
 	filter.log.SetOutput(f)
 

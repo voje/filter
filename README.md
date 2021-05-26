@@ -9,3 +9,5 @@ Fetch the correct version:
 go get github.com/voje/filter@<commit-hash>
 ```
 Build `coredns` with `make`.   
+
+Logs are written to `/var/log/coredns/filter.log`.   

@@ -3,5 +3,5 @@
 .:53 {
 	forward . 192.168.1.1:53
 	log
-	filter ./blacklist.txt ./log/coredns.log
+	filter ./blacklist.txt
 }
