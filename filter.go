@@ -9,11 +9,10 @@ import (
 	"strings"
 
 	"github.com/coredns/coredns/plugin"
-	clog "github.com/coredns/coredns/plugin/pkg/log"
 	"github.com/miekg/dns"
+	log "github.com/sirupsen/logrus"
 )
 
-var log = clog.NewWithPlugin("filter")
 var fqdnRegex = regexp.MustCompile(`(\w*\.\w*).?$`)
 
 type Filter struct {
