@@ -24,6 +24,7 @@ type Filter struct {
 func NewFilter() Filter {
 	f := Filter{}
 	f.Blacklist = make(map[string]bool)
+	f.log = logrus.New()
 	return f
 }
 
