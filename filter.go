@@ -13,7 +13,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-var fqdnRegex = regexp.MustCompile(`(\w*\.\w*).?$`)
+var fqdnRegex = regexp.MustCompile(`(\w+)\.\w+\.?$`)
 
 type Filter struct {
 	Next      plugin.Handler
